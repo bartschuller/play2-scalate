@@ -8,6 +8,7 @@ import models.User
 
 object Application extends Controller {
   val engine = new TemplateEngine(new File("app/scalate_views") :: Nil, "production")
+  engine.classLoader = play.Play.application().classloader()
   def index = Action {
     val template = engine.load("example.jade")
     Ok(engine.layout("/", template, Map("user" -> User("Bart")))).as("text/html")
